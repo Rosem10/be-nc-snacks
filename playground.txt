@@ -1,0 +1,20 @@
+You are now connected to database "nc_snacks" as user "dave".
+ category_id | category_name |            category_description            
+-------------+---------------+--------------------------------------------
+           1 | biscuit       | aint biscuits brillaint
+           2 | chocolate bar | whats better than a biscuite ... chocolate
+           3 | drink         | thirst quenching
+           4 | fruit         | get your 7 a day in!
+(4 rows)
+
+ snack_id |  snack_name   |       snack_description       | price | category_id 
+----------+---------------+-------------------------------+-------+-------------
+        1 | hobnobs       | a delicious biscuit           |   100 |           1
+        2 | kitkat        | is it really a chocloate bar? |   150 |           2
+        3 | cola          | fizzy good make feel nice     |   120 |           3
+        4 | water         | a healthy option              |    90 |           3
+        5 | custard cream | un classique                  |   100 |           1
+        6 | apple         | one a day                     |   200 |           4
+        7 | boost         | the best chocolate bar        |   120 |           2
+(7 rows)
+
