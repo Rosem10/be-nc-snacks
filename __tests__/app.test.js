@@ -45,7 +45,6 @@ describe("/api/snacks", () => {
       .get("/api/snacks")
       .expect(200)
       .then((res) => {
-        // check this response is sorted....
         expect(res.body.snacks).toBeSortedBy("snack_name");
       });
   });
@@ -74,6 +73,22 @@ describe("/api/snacks", () => {
         res.body.snacks.forEach((snack) => {
           expect(snack.category_name).toBe("biscuit");
         });
+      });
+  });
+  test("GET - status: 404 - category not found", () => {
+    return request(app)
+      .get("/api/snacks?category=nonsense")
+      .expect(404)
+      .then((res) => {
+        expect(res.body.msg).toBe("category not found!");
+      });
+  });
+  test("GET - status: 200 - responds with empty array for category with no snacks", () => {
+    return request(app)
+      .get("/api/snacks?category=nuts")
+      .expect(200)
+      .then((res) => {
+        expect(res.body.snacks).toEqual([]);
       });
   });
   test("POST - status: 201 - responds with the newly created snack", () => {

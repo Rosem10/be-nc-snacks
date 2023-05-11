@@ -1,4 +1,5 @@
 const connection = require("../db/connection.js");
+const { checkCategoryExists } = require("../db/utils.js");
 
 exports.selectSnacks = (sort_by = "snack_name", category) => {
   const validSortQueries = ["snack_name", "price"];
@@ -15,9 +16,21 @@ exports.selectSnacks = (sort_by = "snack_name", category) => {
     queryValues.push(category);
   }
   queryStr += ` ORDER BY ${sort_by};`;
-  return connection.query(queryStr, queryValues).then((result) => {
-    return result.rows;
+  const checkExistsPromise = checkCategoryExists(category);
+  const queryPromise = connection.query(queryStr, queryValues);
+
+  return Promise.all([checkExistsPromise, queryPromise]).then((result) => {
+    return result[1].rows;
   });
+
+  // return checkCategoryExists(category)
+  //   .then(() => {
+  //     return connection.query(queryStr, queryValues);
+  //   })
+  //   .then((result) => {
+  //     // only end up in this  .then() block if the category exists
+  //     return result.rows;
+  //   });
 };
 
 exports.selectSnackById = (snack_id) => {
