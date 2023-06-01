@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const {
   getSnacks,
   getSnackById,
@@ -7,6 +8,7 @@ const {
 const { getStatus } = require("./controllers/api.controllers");
 
 const app = express();
+app.use(cors());
 
 app.use((req, res, next) => {
   // log the time of each request
